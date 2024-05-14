@@ -10,7 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import uniandes.edu.co.demo.modelo.Bar;
+import uniandes.edu.co.demo.modelo.Usuario;
 import uniandes.edu.co.demo.repository.BarRepository;
+import uniandes.edu.co.demo.repository.UsuarioRepository;
 import uniandes.edu.co.demo.repository.BarRepository.RespuestaGrupo;
 
 @ComponentScan({"uniandes.edu.co.demo.repository"})
@@ -18,7 +20,7 @@ import uniandes.edu.co.demo.repository.BarRepository.RespuestaGrupo;
 public class DemoApplication  implements CommandLineRunner{
 
 	@Autowired
-	private BarRepository barRepository;
+	private UsuarioRepository usuarioRepository;
 
 
 	public static void main(String[] args) {
@@ -28,6 +30,22 @@ public class DemoApplication  implements CommandLineRunner{
 	@Override
 	public void run(String... strings) throws Exception{
 
+		List<Usuario> res = usuarioRepository.buscarPorNumDoc(562);
+		List<Usuario> ans = usuarioRepository.encontrarTodos();
+
+		if(res.isEmpty()){
+			System.out.println("no hay usuarios por ese id");
+		}
+		else{
+			for(Usuario b: res){
+				System.out.println(b);
+			}
+		}
+		System.out.println("todos: "+ans.size());
+		
+
+
+		/* 
 		//QUERIES
 		List<Bar> res = barRepository.buscarPorId(60);
 
@@ -49,6 +67,8 @@ public class DemoApplication  implements CommandLineRunner{
 
 		//Update
 		barRepository.aniadirBebidaABar(101, "Bebida de prueba 2", "aperitivo", 10, "diurno", 10);
+		*/
 	}
+
 
 }
