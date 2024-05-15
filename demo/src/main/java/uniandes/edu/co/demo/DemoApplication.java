@@ -1,6 +1,7 @@
 package uniandes.edu.co.demo;
 
 import java.util.List;
+import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -29,7 +30,39 @@ public class DemoApplication  implements CommandLineRunner{
 
 	@Override
 	public void run(String... strings) throws Exception{
+		
+		boolean continuar = true;
+		Scanner scanner = new Scanner(System.in);
 
+		while(continuar){
+			System.out.println("----------------");
+			System.out.println("1. Crear usuario");
+			System.out.println("2. Crear oficina");
+			System.out.println("3. Crear punto de atención");
+			System.out.println("4. Borrar punto de atención");
+			System.out.println("5. Crear cuenta");
+			System.out.println("6. Cambiar estado de cuenta a cerrada o desactivada");
+			System.out.println("7. Registrar operación sobre cuenta");
+			System.out.println("8. Consultar las cuentas");
+			System.out.println("9. Extracto bancario para una cuenta");
+			System.out.println("0. salir");
+			
+			System.out.println("\nIngresar opción: ");
+			int opcion = Integer.parseInt(scanner.nextLine());
+			if(opcion == 0){
+				continuar = false;
+				System.out.println("EXIT");
+			}
+
+			else if(opcion ==1 ){
+				this.crearUsuario();
+			}
+			else if(opcion ==2 ){
+				this.crearOficina();
+			}
+		}
+		scanner.close();
+		/*
 		List<Usuario> res = usuarioRepository.buscarPorNumDoc(562);
 		List<Usuario> ans = usuarioRepository.encontrarTodos();
 
@@ -45,7 +78,7 @@ public class DemoApplication  implements CommandLineRunner{
 		
 
 
-		/* 
+		 
 		//QUERIES
 		List<Bar> res = barRepository.buscarPorId(60);
 
@@ -53,7 +86,6 @@ public class DemoApplication  implements CommandLineRunner{
 			System.out.println(b);
 		}
 		
-
 		//AGGREGATIONS
 		List<RespuestaGrupo> res2 = barRepository.darBaresPorCiudad();
 
@@ -68,6 +100,16 @@ public class DemoApplication  implements CommandLineRunner{
 		//Update
 		barRepository.aniadirBebidaABar(101, "Bebida de prueba 2", "aperitivo", 10, "diurno", 10);
 		*/
+	}
+
+	public void crearUsuario(){
+		System.out.println("todos los usuarios:");
+		List<Usuario> ans = usuarioRepository.encontrarTodos();
+		System.out.println("todos: "+ans.size());
+	}
+
+	public void crearOficina(){
+		System.out.println("aalgo");
 	}
 
 
