@@ -10,19 +10,19 @@ import lombok.ToString;
 public class Usuario {
 
     @Id
-    private String id;
+    private String _id;
 
-    private String nombre;
-    private String tipo_doc;
-    private int num_doc;
-    private String email;
-    private int telefono;
-    private String nacionalidad;
-    private String direccion;
-    private String ciudad;
-    private String departamento;
-    private String tipo_usuario; // 1: empleado, 2:cliente
-    private String tipo_empleado; // 
+    public String nombre;
+    public String tipo_doc;
+    public int num_doc;
+    public String email;
+    public int telefono;
+    public String nacionalidad;
+    public String direccion;
+    public String ciudad;
+    public String departamento;
+    public String tipo_usuario; // 1: empleado, 2:cliente
+    public String tipo_empleado; // 
     
     
     public Usuario(String nombre, String tipo_doc, int num_doc, String email, int telefono, String nacionalidad,
