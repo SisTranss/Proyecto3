@@ -1,6 +1,8 @@
 package uniandes.edu.co.demo;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,15 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import uniandes.edu.co.demo.modelo.Bar;
 import uniandes.edu.co.demo.modelo.Oficina;
 import uniandes.edu.co.demo.modelo.Usuario;
+import uniandes.edu.co.demo.modelo.Usuario2;
+import uniandes.edu.co.demo.modelo.Cuenta;
+import uniandes.edu.co.demo.modelo.OperacionCuenta;
 import uniandes.edu.co.demo.repository.BarRepository;
 import uniandes.edu.co.demo.repository.OficinaRepository;
 import uniandes.edu.co.demo.repository.UsuarioRepository;
 import uniandes.edu.co.demo.repository.BarRepository.RespuestaGrupo;
+import uniandes.edu.co.demo.repository.Usuario2Repository;
+import uniandes.edu.co.demo.repository.CuentaRepository;
 
 //@ComponentScan({"uniandes.edu.co.demo.repository"})
 @SpringBootApplication
@@ -27,8 +34,15 @@ public class DemoApplication  /*implements CommandLineRunner*/{
 	private UsuarioRepository usuarioRepository;
 
 	@Autowired
+
+	private Usuario2Repository usuario2Repository;
+
+	@Autowired
+	private CuentaRepository cuentaRepository;
+
 	private OficinaRepository oficinaRepository;
 	 */
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -66,6 +80,15 @@ public class DemoApplication  /*implements CommandLineRunner*/{
 			}
 			else if(opcion ==2 ){
 				this.crearOficina();
+			}
+			else if(opcion ==3 ){
+				this.crearUsuario2();
+			}
+			else if(opcion ==4){
+				this.crearCuenta(123);
+			}
+			else{
+				System.out.println("Opción no válida");
 			}
 		}
 		scanner.close();
@@ -120,6 +143,25 @@ public class DemoApplication  /*implements CommandLineRunner*/{
 		System.out.println("numero de oficinas: " + oficinas.size());
 	}
 	*/
+
+	public void crearUsuario2(){
+		System.out.println("USUARIOS:");
+		List<Cuenta> cuentas = new ArrayList<Cuenta>();
+		usuario2Repository.save(new Usuario2("1", "nombre", 123,  "email", 123, "nacionalidad", "direccion", "ciudad", "departamento", 1, 1, cuentas));
+		List<Usuario2> ans = usuario2Repository.findAll();
+		System.out.println("todos: "+ans.size());
+	}
+
+	public void crearCuenta(int num_doc_cliente){
+		System.out.println("USUARIOS:");
+		List<OperacionCuenta> operacionesCuenta = new ArrayList<OperacionCuenta>();
+		long millis=System.currentTimeMillis();
+        Date hoy = new Date(millis);
+
+		usuario2Repository.aniadirCuentaAUsuario(num_doc_cliente, 1, 100.0, hoy, "activa", operacionesCuenta);
+
+	}
+
 
 
 }
