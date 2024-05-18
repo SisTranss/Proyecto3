@@ -1,4 +1,6 @@
 package uniandes.edu.co.demo.modelo;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,6 +15,9 @@ public class PuntoAtencion {
 
     int id;
     String tipoPunto;
+    List<Integer> operaciones;
+
+    public PuntoAtencion(){}
     
     public PuntoAtencion(int id, String tipoPunto) {
         this.id = id;
@@ -41,6 +46,14 @@ public class PuntoAtencion {
 
     public void setTipo_punto(String tipoPunto) {
         this.tipoPunto = tipoPunto;
+    }
+
+    public List<Integer> getOperaciones() {
+        return operaciones;
+    }
+
+    public void setOperaciones(List<Integer> operaciones) {
+        this.operaciones = operaciones;
     }
 
     

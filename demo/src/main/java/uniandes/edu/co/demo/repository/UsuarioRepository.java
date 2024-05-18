@@ -11,7 +11,4 @@ public interface UsuarioRepository extends MongoRepository<Usuario, String> {
     
     @Query("{num_doc:?0}")
     List<Usuario> buscarPorNumDoc(int id);
-
-    @Query("{}")
-    List<Usuario> encontrarTodos();
 }

@@ -10,13 +10,14 @@
 <body>
     <img th:src="@{/images/image.png}" with="250" id="LogoMain"/>
 
-    <button type="button" class="btn btn-info">Gestionar usuario</button>
+    <a th:href="@{/usuarios}" class="btn btn-info m-2">Gestionar usuario</a>
 
-    <a th:href="@{/oficinas}" class="btn btn-primary m-2">Gestionar oficinass</a>  
+    <a th:href="@{/oficinas}" class="btn btn-info m-2">Gestionar oficinass</a>  
 
-    <a th:href="@{/puntosAtencion}" class="btn btn-primary m-2">Gestionar puntos de atencion</a>  
+    <a th:href="@{/puntosAtencion}" class="btn btn-info m-2">Gestionar puntos de atencion</a>
 
-    <button type="button" class="btn btn-info">Gestionar cuentas</button>
+    <a th:href="@{/}" class="btn btn-dark m-2">Gestionar cuentas</a>  
+
 
 </body>
 </html>

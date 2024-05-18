@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+    <div>
+        <h1>Lista de Usuarios</h1>
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>tipo documento</th>
+                    <th>numero identificacion</th>
+                    <th>nombre</th>
+                    <th>email</th>
+                    <th>nacionalidad</th>
+                    <th>telefono</th>
+                    <th>tipo de usuario</th>
+                  
+                </tr>
+            </thead>
+            <th:block th:each = "usuario:${usuarios}">
+                <tr>
+                    <td th:text="${usuario.tipo_doc}"></td>
+                    <td th:text="${usuario.num_doc}"></td>
+                    <td th:text="${usuario.nombre}"></td>
+                    <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.nacionalidad}"></td>
+                    <td th:text="${usuario.telefono}"></td>
+                    <td th:text="${usuario.tipo_usuario}"></td>
+                </tr>
+            </th:block>
+        </table>
+        <div>
+            <a th:href="@{/}" class="btn btn-secondary">Volver atrás</a>
+            <a th:href="@{usuarios/new}" class="btn btn-primary">Crear usuario</a>
+        </div>
+    </div>
+</body>
+</html>

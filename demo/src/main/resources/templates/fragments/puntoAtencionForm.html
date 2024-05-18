@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragmento</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <div th:fragment = "puntoAtencionForm(titulo)" class = "container border border-2 w-25">
+        <h1 class="text-center" th:text="${titulo}"></h1>
+        <form>
+
+            <label class="col-form-label">Id</label>
+            <input class = "form-control" type = "text" id="id" 
+            name= "id" required th:valued "${puntoAtencion.id}"/>
+
+            <label class="col-form-label" for="tipo_punto">Tipo de punto:</label>
+            <select class="form-control" id="tipo_punto" name="tipo_punto" required>
+                <option value="automatico" th:selected="${puntoAtencion.tipo_punto eq 'automatico'}">Cajero automatico</option>
+                <option value="personalizado" th:selected="${puntoAtencion.tipo_punto eq 'personalizado'}">Atencion personalizada</option>
+                <option value="digital" th:selected="${puntoAtencion.tipo_punto eq 'digital'}">Digital</option>
+            </select>
+
+            <label class="col-form-label" for="oficina">Oficina:</label>
+            <select class="form-control" id="oficina" name="oficina" required >
+            <th:block th:each = "oficina:${oficinas}">
+                    <option th:value="${oficina.nombre}" th:selected="${oficina.nombre}" th:text="${oficina.nombre}"></option>
+                </select>
+            </th:block>
+            <p>Si no es un punto de atencion digital</p>
+
+              <br>
+                <input type = "submit" value = "Guardar" class = "btn btn-primary"/>
+                <a th:href="@{/puntosAtencion}" class ="btn btn-primary">Cancelar</a>
+            </div>
+        
+        </form>
+    </div> 
+
+</body>
+</html>
