@@ -11,22 +11,29 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import uniandes.edu.co.demo.modelo.Bar;
+import uniandes.edu.co.demo.modelo.Oficina;
 import uniandes.edu.co.demo.modelo.Usuario;
 import uniandes.edu.co.demo.repository.BarRepository;
+import uniandes.edu.co.demo.repository.OficinaRepository;
 import uniandes.edu.co.demo.repository.UsuarioRepository;
 import uniandes.edu.co.demo.repository.BarRepository.RespuestaGrupo;
 
-@ComponentScan({"uniandes.edu.co.demo.repository"})
+//@ComponentScan({"uniandes.edu.co.demo.repository"})
 @SpringBootApplication
-public class DemoApplication  implements CommandLineRunner{
+public class DemoApplication  /*implements CommandLineRunner*/{
 
+	/*
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
+	@Autowired
+	private OficinaRepository oficinaRepository;
+	 */
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
+	/*
 
 	@Override
 	public void run(String... strings) throws Exception{
@@ -62,7 +69,7 @@ public class DemoApplication  implements CommandLineRunner{
 			}
 		}
 		scanner.close();
-		/*
+		
 		List<Usuario> res = usuarioRepository.buscarPorNumDoc(562);
 		List<Usuario> ans = usuarioRepository.encontrarTodos();
 
@@ -99,7 +106,7 @@ public class DemoApplication  implements CommandLineRunner{
 
 		//Update
 		barRepository.aniadirBebidaABar(101, "Bebida de prueba 2", "aperitivo", 10, "diurno", 10);
-		*/
+		
 	}
 
 	public void crearUsuario(){
@@ -109,8 +116,10 @@ public class DemoApplication  implements CommandLineRunner{
 	}
 
 	public void crearOficina(){
-		System.out.println("aalgo");
+		List<Oficina> oficinas = oficinaRepository.findAll();
+		System.out.println("numero de oficinas: " + oficinas.size());
 	}
+	*/
 
 
 }

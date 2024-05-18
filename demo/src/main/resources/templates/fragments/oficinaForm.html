@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragmento</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <div th:fragment="oficinaForm(titulo)" class="container border border-2 w-25">
+        <h1 class="text-center" th:text="${titulo}"></h1>
+        <form>
+
+            <label class="col-form-label"> Nombre </label>
+            <input class = "form-control" type ="text" id="nombre"
+            name = "nombre" required th:value="${oficina.nombre}"/>
+
+            <label class="col-form-label"> Departamento </label>
+            <input class = "form-control" type ="text" id="departamento"
+            name = "departamento" required th:value="${oficina.departamento}"/>
+
+            <label class="col-form-label"> Ciudad </label>
+            <input class = "form-control" type ="text" id="ciudad"
+            name = "ciudad" required th:value="${oficina.ciudad}"/>
+
+            <label class="col-form-label"> Direccion </label>
+            <input class = "form-control" type ="text" id="direccion"
+            name = "direccion" required th:value="${oficina.direccion}"/>
+
+            <label class="col-form-label"> Numero puntos Atencion </label>
+            <input class = "form-control" type ="number" id="numero_puntos_at"
+            name = "numero_puntos_at" required th:value="${oficina.numero_puntos_at}"/>
+
+            <label class="col-form-label"> Numero doc gerente oficina  </label>
+            <input class = "form-control" type ="number" id="gerente_oficina"
+            name = "gerente_oficina" required th:value="${oficina.gerente_oficina}"/>
+
+            <br>
+            <div class="text-center">
+                <input type="submit" value="Guardar" class="btn btn-primary">
+                <a th:href="@{/oficinas}" class="btn btn-primary">Cancelar</a>
+            </div>
+        </form>
+    </div> 
+
+</body>
+</html>

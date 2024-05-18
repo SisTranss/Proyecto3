@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BancaAndes</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <img th:src="@{/images/image.png}" with="250" id="LogoMain"/>
+
+    <button type="button" class="btn btn-info">Gestionar usuario</button>
+
+    <a th:href="@{/oficinas}" class="btn btn-primary m-2">Gestionar oficinass</a>  
+
+    <a th:href="@{/puntosAtencion}" class="btn btn-primary m-2">Gestionar puntos de atencion</a>  
+
+    <button type="button" class="btn btn-info">Gestionar cuentas</button>
+
+</body>
+</html>
