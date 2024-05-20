@@ -36,11 +36,6 @@ public interface CuentaRepository extends MongoRepository<Cuenta, Integer> {
             }
         }
 
-
-        
-
-     
-
         @Query("{_id: ?0}")
         List<Bar> buscarPorId(int id);
 

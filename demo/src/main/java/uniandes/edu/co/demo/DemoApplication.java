@@ -2,6 +2,7 @@ package uniandes.edu.co.demo;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -25,28 +26,28 @@ import uniandes.edu.co.demo.repository.BarRepository.RespuestaGrupo;
 import uniandes.edu.co.demo.repository.Usuario2Repository;
 import uniandes.edu.co.demo.repository.CuentaRepository;
 
-//@ComponentScan({"uniandes.edu.co.demo.repository"})
 @SpringBootApplication
-public class DemoApplication  /*implements CommandLineRunner*/{
+@ComponentScan({"uniandes.edu.co.demo"})
+@EnableMongoRepositories(basePackages = "uniandes.edu.co.demo.repository")
+public class DemoApplication  implements CommandLineRunner{
 
 	/*
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-
+*/
 	@Autowired
-
 	private Usuario2Repository usuario2Repository;
-
+/*
 	@Autowired
 	private CuentaRepository cuentaRepository;
 
 	private OficinaRepository oficinaRepository;
 	 */
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
+	
 	/*
 
 	@Override
@@ -158,8 +159,32 @@ public class DemoApplication  /*implements CommandLineRunner*/{
 		long millis=System.currentTimeMillis();
         Date hoy = new Date(millis);
 
-		usuario2Repository.aniadirCuentaAUsuario(num_doc_cliente, 1, 100.0, hoy, "activa", operacionesCuenta);
+		usuario2Repository.aniadirCuentaAUsuario(num_doc_cliente, 1, 100.0, hoy, "activa","ahorros", operacionesCuenta);
 
+	}
+
+	public void filtarCuenta(){
+		String tipo = "ahorros";
+		Double saldo_min = 100.0;
+		Double saldo_max = 1000.0;
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, 2022);
+		calendar.set(Calendar.MONTH, Calendar.JANUARY); // Note: January is 0, not 1.
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		Date date = calendar.getTime();
+
+		Calendar ultima = Calendar.getInstance();
+		ultima.set(Calendar.YEAR, 2022);
+		ultima.set(Calendar.MONTH, Calendar.JANUARY); // Note: January is 0, not 1.
+		ultima.set(Calendar.DAY_OF_MONTH, 1);
+		Date fecha_u_transaccion = ultima.getTime();
+
+		int num_doc = 123;
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		crearCuenta(123);
 	}
 
 
