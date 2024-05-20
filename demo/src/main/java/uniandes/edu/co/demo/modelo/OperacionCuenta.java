@@ -1,7 +1,7 @@
 package uniandes.edu.co.demo.modelo;
 
 import org.springframework.data.annotation.Id;
-
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.ToString;
 
@@ -11,63 +11,56 @@ import java.util.Date;
 @ToString
 public class OperacionCuenta {
 
-    @Id
-    private Integer id;
+    private String tipo;
 
-    private String tipoOperacion;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date fecha_operacion;
 
-    private Date fechaOperacion;
+    private Float monto_pago;
 
-    private Float montoPago;
+    private int cuenta_destino;
 
-    private int cuentaDestino;
+    public OperacionCuenta( String tipo, Date fecha_operacion, Float monto_pago, int cuenta_destino) {
 
-    public OperacionCuenta(Integer id, String tipoOperacion, Date fechaOperacion, Float montoPago, int cuentaDestino) {
-        this.id = id;
-        this.tipoOperacion = tipoOperacion;
-        this.fechaOperacion = fechaOperacion;
-        this.montoPago = montoPago;
-        this.cuentaDestino = cuentaDestino;
+        this.tipo = tipo;
+        this.fecha_operacion = fecha_operacion;
+        this.monto_pago = monto_pago;
+        this.cuenta_destino = cuenta_destino;
     }
 
-    public Integer getId() {
-        return id;
+    public OperacionCuenta() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getTipo() {
+        return tipo;
     }
 
-    public String getTipoOperacion() {
-        return tipoOperacion;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
-    public void setTipoOperacion(String tipoOperacion) {
-        this.tipoOperacion = tipoOperacion;
+    public Date getFecha_operacion() {
+        return fecha_operacion;
     }
 
-    public Date getFechaOperacion() {
-        return fechaOperacion;
+    public void setFecha_operacion(Date fecha_operacion) {
+        this.fecha_operacion = fecha_operacion;
     }
 
-    public void setFechaOperacion(Date fechaOperacion) {
-        this.fechaOperacion = fechaOperacion;
+    public Float getMonto_pago() {
+        return monto_pago;
     }
 
-    public Float getMontoPago() {
-        return montoPago;
+    public void setMonto_pago(Float monto_pago) {
+        this.monto_pago = monto_pago;
     }
 
-    public void setMontoPago(Float montoPago) {
-        this.montoPago = montoPago;
+    public int getCuenta_destino() {
+        return cuenta_destino;
     }
 
-    public int getCuentaDestino() {
-        return cuentaDestino;
-    }
-
-    public void setCuentaDestino(int cuentaDestino) {
-        this.cuentaDestino = cuentaDestino;
+    public void setCuenta_destino(int cuenta_destino) {
+        this.cuenta_destino = cuenta_destino;
     }
 
 

@@ -12,31 +12,57 @@ import java.util.Date;
 
 @ToString
 public class Cuenta {
-    @Id
-    private int id;
+    private int numero_cuenta;
     private Double saldo;
 
-    private Date ultimaTransaccion;
+    private Date ultima_transaccion;
 
     private String estado;
 
-    private List<OperacionCuenta> operacionesCuentas;
+    private String tipo;
+
+    private List<OperacionCuenta> operaciones_cuentas;
+
+    private int num_doc_cliente;
+
+    
 
 
-    public Cuenta(int id, Double saldo, Date ultimaTransaccion, String estado, List<OperacionCuenta> operacionesCuentas) {
-        this.id = id;
+    public Cuenta(int numero_cuenta, Double saldo, Date ultima_transaccion, String estado, String tipo, List<OperacionCuenta> operaciones_cuentas, int num_doc_cliente) {
+        this.numero_cuenta = numero_cuenta;
         this.saldo = saldo;
-        this.ultimaTransaccion = ultimaTransaccion;
+        this.ultima_transaccion = ultima_transaccion;
         this.estado = estado;
-        this.operacionesCuentas = operacionesCuentas;
+        this.operaciones_cuentas = operaciones_cuentas;
+        this.tipo = tipo;
+        this.num_doc_cliente = num_doc_cliente;
+    }
+
+    public Cuenta() {
+    }
+
+    public int getNum_doc_cliente() {
+        return num_doc_cliente;
+    }
+
+    public void setNum_doc_cliente(int num_doc_cliente) {
+        this.num_doc_cliente = num_doc_cliente;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 
-    public int getId() {
-        return id;
+    public int getNumero_cuenta() {
+        return numero_cuenta;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setNumero_cuenta(int numero_cuenta) {
+        this.numero_cuenta = numero_cuenta;
     }
 
     public Double getSaldo() {
@@ -47,12 +73,12 @@ public class Cuenta {
         return this.saldo = saldo;
     }
 
-    public Date getUltimaTransaccion() {
-        return ultimaTransaccion;
+    public Date getUltima_transaccion() {
+        return ultima_transaccion;
     }
 
-    public void setUltimaTransaccion(Date ultimaTransaccion) {
-        this.ultimaTransaccion = ultimaTransaccion;
+    public void setUltima_transaccion(Date ultima_transaccion) {
+        this.ultima_transaccion = ultima_transaccion;
     }
 
     public String getEstado() {
@@ -63,12 +89,12 @@ public class Cuenta {
         this.estado = estado;
     }
 
-    public List<OperacionCuenta> getOperacionesCuentas() {
-        return operacionesCuentas;
+    public List<OperacionCuenta> getOperaciones_cuentas() {
+        return operaciones_cuentas;
     }
 
-    public void setOperacionesCuentas(List<OperacionCuenta> operacionesCuentas) {
-        this.operacionesCuentas = operacionesCuentas;
+    public void setOperaciones_cuentas(List<OperacionCuenta> operaciones_cuentas) {
+        this.operaciones_cuentas = operaciones_cuentas;
     }
 
 
