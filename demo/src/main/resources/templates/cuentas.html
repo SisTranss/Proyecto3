@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuentas</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div>
+        <h1>Lista de Cuentas</h1>
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>numero cuenta</th>
+                    <th>tipo</th>
+                    <th>estado</th>
+                    <th>saldo</th>
+                    <th>ultima transaccion</th>
+                    <th>Numero doc cliente</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <th:block th:each = "cuenta:${cuentas}">
+                <tr>
+                    <td th:text="${cuenta.numero_cuenta}"></td>
+                    <td th:text="${cuenta.tipo}"></td>
+                    <td th:text="${cuenta.estado}"></td>
+                    <td th:text="${cuenta.saldo}"></td>
+                    <td th:text="${cuenta.ultima_transaccion}"></td>
+                    <td th:text="${cuenta.num_doc_cliente}"></td>
+                    <td>
+
+                        <a th:href="@{/cuentas/{numero_cuenta}/cambiar-estado/save(numero_cuenta=${cuenta.numero_cuenta}, nuevo_estado='cerrada', num_doc_cliente=${cuenta.num_doc_cliente})}"
+                        onclick="return confirm('¿Estás seguro de cerrar esta cuenta?')">Cerrar cuenta</a>
+
+                        <a th:href="@{/cuentas/{numero_cuenta}/cambiar-estado/save(numero_cuenta=${cuenta.numero_cuenta}, nuevo_estado='desactivada', num_doc_cliente=${cuenta.num_doc_cliente})}" 
+                        onclick="return confirm('¿Estás seguro de desactivar esta cuenta?')">Desactivar cuenta</a>
+
+
+                    </td>
+                </tr>
+                
+            </th:block>
+        </table>
+        <div>
+            <a th:href="@{/}" class="btn btn-secondary">Volver atrás</a>
+            <a th:href="@{cuentas/new}" class="btn btn-primary">Crear cuenta</a>
+            
+        </div>
+    </div>
+</body>
+</html>
