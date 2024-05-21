@@ -3,6 +3,7 @@ package uniandes.edu.co.demo.modelo;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.ToString;
@@ -16,6 +17,7 @@ public class Usuario2 {
 
     private String nombre;
     private String tipo_doc;
+    @Indexed(unique = true)
     private int num_doc;
     private String email;
     private int telefono;
@@ -29,7 +31,7 @@ public class Usuario2 {
     
     
     public Usuario2(String nombre, String tipo_doc, int num_doc, String email, int telefono, String nacionalidad,
-            String direccion, String ciudad, String departamento, int tipo_usuario, int tipo_empleado,List<Cuenta> cuentas) {
+            String direccion, String ciudad, String departamento, int tipo_usuario, int tipo_empleado, List<Cuenta> cuentas) {
         
         this.nombre = nombre;
         this.tipo_doc = tipo_doc;
@@ -43,7 +45,6 @@ public class Usuario2 {
         this.tipo_usuario = tipo_usuario;
         this.tipo_empleado = tipo_empleado;
         this.cuentas = cuentas;
-
     }
 
     public List<Cuenta> getCuentas() {
