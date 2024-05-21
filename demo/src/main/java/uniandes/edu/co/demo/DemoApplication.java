@@ -174,13 +174,13 @@ public class DemoApplication  implements CommandLineRunner{
 		Double saldo_max = 1000.0;
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR, 2022);
-		calendar.set(Calendar.MONTH, Calendar.JANUARY); // Note: January is 0, not 1.
+		calendar.set(Calendar.MONTH, Calendar.JANUARY); 
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		Date date = calendar.getTime();
 
 		Calendar ultima = Calendar.getInstance();
 		ultima.set(Calendar.YEAR, 2022);
-		ultima.set(Calendar.MONTH, Calendar.JANUARY); // Note: January is 0, not 1.
+		ultima.set(Calendar.MONTH, Calendar.JANUARY);
 		ultima.set(Calendar.DAY_OF_MONTH, 1);
 		Date fecha_u_transaccion = ultima.getTime();
 
