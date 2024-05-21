@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>extractoBancario2</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+    <div>
+        <div class="container w-25">
+            <div class="card border border-2 mx-auto">
+                <h5 class="card-header" role="button" id="headingOne">
+                    <a href="#" class="collapsed d-block" data-toggle="collapse" data-target="#busqueda">
+                        Emitir extracto bancario
+                    </a>
+                </h5>
+        
+                <div id="busqueda" class="collapse show">
+                    <form action="#" th:action="@{/extractoBancario2}" method="get">
+                        <div class="form-group">
+                            <label for="numDocUsuario">Numero de documento del usuario:</label>
+                            <input type="number" class="form-control" id="numDocUsuario" name="numDocUsuario" required th:value="${numDocUsuario}">
+                            <br/>
+                            <label for="idCuenta">ID de la cuenta:</label>
+                            <input type="number" class="form-control" id="idCuenta" name="idCuenta" required th:value="${idCuenta}">
+                            <br/>
+                            <label for="mes">Mes sobre el que se quiere emitir el extracto:</label>
+                            <select class="form-control" id="mes" name="mes" required th:value="${mes}">
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                
+                        </div>
+                        <button type="submit" class="btn btn-primary">Emitir extracto</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        
+        <h1>Lista de operaciones</h1>
+        <h3>Consignaciones, retiros y transacciones</h3>
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID operacion</th>
+                    <th>tipo de operación</th>
+                    <th>fecha de operación</th>
+                    <th>monto de pago</th>
+                    <th>cuenta de origen</th>
+                    <th>cuenta de destino</th>
+                </tr>
+            </thead>
+            <th:block th:each = "operacionCuenta:${operacionesCuentas}">
+                <tr>
+                    <td th:text="${operacionCuenta.id}"></td>
+                    <td th:text="${operacionCuenta.tipo_operacion}"></td>
+                    <td th:text="${operacionCuenta.fecha_operacion}"></td>
+                    <td th:text="${operacionCuenta.monto_pago}"></td>
+                    <td th:text="${operacionCuenta.cuenta_origen}"></td>
+                    <td th:text="${operacionCuenta.cuenta_destino}"></td>
+                </tr>
+            </th:block>
+        </table>
+        
+                <div class="row">
+            <div class = "col">
+            <h3 class="text-center">Saldo al iniciar el mes:</h3>
+            <h2  class="text-center" th:text="${inicioMes}"></h2>
+            
+            </div>
+            <div class = "col">
+                <h3 class="text-center" >Saldo al final del mes:</h3>
+                <h2  class="text-center" th:text="${finMes}"></h2>
+        </div>
+        </div>
+    </div>
+</body>
+</html>
