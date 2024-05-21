@@ -15,13 +15,11 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import uniandes.edu.co.demo.modelo.Bar;
 import uniandes.edu.co.demo.modelo.Oficina;
-import uniandes.edu.co.demo.modelo.Usuario;
 import uniandes.edu.co.demo.modelo.Usuario2;
 import uniandes.edu.co.demo.modelo.Cuenta;
 import uniandes.edu.co.demo.modelo.OperacionCuenta;
 import uniandes.edu.co.demo.repository.BarRepository;
 import uniandes.edu.co.demo.repository.OficinaRepository;
-import uniandes.edu.co.demo.repository.UsuarioRepository;
 import uniandes.edu.co.demo.repository.BarRepository.RespuestaGrupo;
 import uniandes.edu.co.demo.service.CuentaService;
 import uniandes.edu.co.demo.repository.Usuario2Repository;
@@ -30,18 +28,18 @@ import uniandes.edu.co.demo.repository.CuentaRepository;
 @SpringBootApplication
 @ComponentScan({"uniandes.edu.co.demo"})
 @EnableMongoRepositories(basePackages = "uniandes.edu.co.demo.repository")
-public class DemoApplication  implements CommandLineRunner{
+public class DemoApplication  /*implements CommandLineRunner */{
 
 	/*
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-*/
+
 	@Autowired
 	private Usuario2Repository usuario2Repository;
 
 	@Autowired
 	private CuentaService cuentaService;
-/*
+
 	@Autowired
 	private CuentaRepository cuentaRepository;
 
@@ -149,6 +147,7 @@ public class DemoApplication  implements CommandLineRunner{
 	}
 	
 	*/
+	/* 
 	public void crearUsuario2(){
 		System.out.println("USUARIOS:");
 		List<Cuenta> cuentas = new ArrayList<Cuenta>();
@@ -194,6 +193,7 @@ public class DemoApplication  implements CommandLineRunner{
 		crearUsuario2();
 		crearCuenta(123);
 	}
+	*/
 
 
 
