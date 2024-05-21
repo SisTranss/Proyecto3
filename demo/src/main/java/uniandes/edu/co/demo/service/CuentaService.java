@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import uniandes.edu.co.demo.modelo.Cuenta;
+import uniandes.edu.co.demo.repository.Usuario2Repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
@@ -19,7 +20,10 @@ public class CuentaService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public List<Cuenta> findWithFiltersAndGroupBy(String tipo, Double minSaldo, Double maxSaldo, Date fechaCreacionInicio, Date fechaCreacionFin, Date fechaUltimaTransaccionInicio, Date fechaUltimaTransaccionFin, String cliente, String groupByField) {
+    @Autowired
+    private Usuario2Repository usuario2Repository;
+
+/*  public List<Cuenta> findWithFiltersAndGroupBy(String tipo, Double minSaldo, Double maxSaldo, Date fechaCreacionInicio, Date fechaCreacionFin, Date fechaUltimaTransaccionInicio, Date fechaUltimaTransaccionFin, String cliente, String groupByField) {
         MatchOperation matchStage = Aggregation.match(
             new Criteria().orOperator(
                 Criteria.where("cuentas.tipo").is(tipo),
@@ -36,24 +40,13 @@ public class CuentaService {
 
         return mongoTemplate.aggregate(aggregation, "usuario", Cuenta.class).getMappedResults();
     }
+*/
+    public List<Cuenta> findWithFilters(String tipo, Double minSaldo, Double maxSaldo, Date fechaCreacionInicio, Date fechaCreacionFin, Date fechaUltimaTransaccionFin, int num_doc) {
 
-    public List<Cuenta> findWithFilters(String tipo, Double minSaldo, Double maxSaldo, Date fechaCreacionInicio, Date fechaCreacionFin, Date fechaUltimaTransaccionInicio, Date fechaUltimaTransaccionFin, String cliente) {
         Query query = new Query();
 
-        if (tipo != null) {
-            query.addCriteria(Criteria.where("tipo").is(tipo));
-        }
-        if (minSaldo != null && maxSaldo != null) {
-            query.addCriteria(Criteria.where("saldo").gte(minSaldo).lte(maxSaldo));
-        }
-        if (fechaCreacionInicio != null && fechaCreacionFin != null) {
-            query.addCriteria(Criteria.where("fechaCreacion").gte(fechaCreacionInicio).lte(fechaCreacionFin));
-        }
-        if (fechaUltimaTransaccionInicio != null && fechaUltimaTransaccionFin != null) {
-            query.addCriteria(Criteria.where("fechaUltimaTransaccion").gte(fechaUltimaTransaccionInicio).lte(fechaUltimaTransaccionFin));
-        }
-        if (cliente != null) {
-            query.addCriteria(Criteria.where("cliente").is(cliente));
+        if (num_doc != 0) {
+            usuario2Repository.darCuentasUser(num_doc);
         }
 
         return mongoTemplate.find(query, Cuenta.class);
