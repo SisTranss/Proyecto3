@@ -14,7 +14,6 @@ import uniandes.edu.co.demo.modelo.Cuenta;
 
 public interface CuentaRepository extends MongoRepository<Cuenta, Integer> {
 
-        
         public class RespuestaGrupo{
            String ciudad;
             int cantidad;
@@ -46,5 +45,5 @@ public interface CuentaRepository extends MongoRepository<Cuenta, Integer> {
         @Query("{_id: ?0}")
         @Update("{$push:{oferta_bebidas:{nombre:?1, tipo:?2, grado_alcohol:?3, horario:?4, precio:?5}}}")
         void aniadirBebidaABar(int id_bar, String nombre, String tipo, int grado_alcohol, String horario, int precio);
-
+  
 }

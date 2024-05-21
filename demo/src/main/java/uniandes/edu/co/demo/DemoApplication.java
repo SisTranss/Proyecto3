@@ -143,7 +143,7 @@ public class DemoApplication  implements CommandLineRunner{
 		List<Oficina> oficinas = oficinaRepository.findAll();
 		System.out.println("numero de oficinas: " + oficinas.size());
 	}
-	*/
+	
 
 	public void crearUsuario2(){
 		System.out.println("USUARIOS:");
@@ -162,6 +162,7 @@ public class DemoApplication  implements CommandLineRunner{
 		usuario2Repository.aniadirCuentaAUsuario(num_doc_cliente, 1, 100.0, hoy, "activa","ahorros", operacionesCuenta);
 
 	}
+	*/
 
 	public void filtarCuenta(){
 		String tipo = "ahorros";
