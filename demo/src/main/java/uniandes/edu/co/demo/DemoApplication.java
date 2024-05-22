@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,38 +12,33 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import uniandes.edu.co.demo.modelo.Bar;
-import uniandes.edu.co.demo.modelo.Oficina;
-import uniandes.edu.co.demo.modelo.Usuario2;
 import uniandes.edu.co.demo.modelo.Cuenta;
 import uniandes.edu.co.demo.modelo.OperacionCuenta;
-import uniandes.edu.co.demo.repository.BarRepository;
-import uniandes.edu.co.demo.repository.OficinaRepository;
-import uniandes.edu.co.demo.repository.BarRepository.RespuestaGrupo;
-import uniandes.edu.co.demo.service.CuentaService;
+import uniandes.edu.co.demo.modelo.Usuario2;
 import uniandes.edu.co.demo.repository.Usuario2Repository;
-import uniandes.edu.co.demo.repository.CuentaRepository;
+import uniandes.edu.co.demo.service.CuentaService;
 
 @SpringBootApplication
 @ComponentScan({"uniandes.edu.co.demo"})
 @EnableMongoRepositories(basePackages = "uniandes.edu.co.demo.repository")
-public class DemoApplication  /*implements CommandLineRunner */{
+public class DemoApplication  implements CommandLineRunner {
 
 	/*
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	@Autowired
-	private Usuario2Repository usuario2Repository;
-
-	@Autowired
-	private CuentaService cuentaService;
-
-	@Autowired
 	private CuentaRepository cuentaRepository;
 
 	private OficinaRepository oficinaRepository;
-	 */
+	*/
+
+	@Autowired
+	private Usuario2Repository usuario2Repository;
+ 
+	@Autowired
+	private CuentaService cuentaService;
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
@@ -147,7 +141,7 @@ public class DemoApplication  /*implements CommandLineRunner */{
 	}
 	
 	*/
-	/* 
+
 	public void crearUsuario2(){
 		System.out.println("USUARIOS:");
 		List<Cuenta> cuentas = new ArrayList<Cuenta>();
@@ -193,8 +187,5 @@ public class DemoApplication  /*implements CommandLineRunner */{
 		crearUsuario2();
 		crearCuenta(123);
 	}
-	*/
-
-
 
 }

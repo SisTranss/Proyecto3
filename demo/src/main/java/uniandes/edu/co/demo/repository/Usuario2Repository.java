@@ -14,7 +14,7 @@ import uniandes.edu.co.demo.modelo.Usuario2;
 import uniandes.edu.co.demo.modelo.Cuenta;
 import uniandes.edu.co.demo.modelo.OperacionCuenta;
 
-public interface Usuario2Repository extends MongoRepository<Usuario2, String>{
+public interface Usuario2Repository extends MongoRepository<Usuario2, Integer>{
     
     @Query("{num_doc: ?0}")
     List<Usuario2> buscarPorNumDoc(int num_doc);
