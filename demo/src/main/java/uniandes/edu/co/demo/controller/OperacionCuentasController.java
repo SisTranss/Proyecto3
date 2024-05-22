@@ -157,7 +157,7 @@ public class OperacionCuentasController {
     public void modificarSaldoCuentaRetirar(Usuario2 usuario, Cuenta cuenta, Float monto_pago) {
         cuenta.setSaldo(cuenta.getSaldo() - monto_pago);
         List<OperacionCuenta> operacionesCuenta = new ArrayList<OperacionCuenta>();
-        cuenta.setOperaciones_cuentas(operacionesCuenta);
+        cuenta.setOperaciones_cuenta(operacionesCuenta);
 
         
         
