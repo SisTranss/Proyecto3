@@ -21,19 +21,19 @@ public class Cuenta {
 
     private String tipo;
 
-    private List<OperacionCuenta> operaciones_cuentas;
+    private List<OperacionCuenta> operaciones_cuenta;
 
     private int num_doc_cliente;
 
     
 
 
-    public Cuenta(int numero_cuenta, Double saldo, Date ultima_transaccion, String estado, String tipo, List<OperacionCuenta> operaciones_cuentas, int num_doc_cliente) {
+    public Cuenta(int numero_cuenta, Double saldo, Date ultima_transaccion, String estado, String tipo, List<OperacionCuenta> operaciones_cuenta, int num_doc_cliente) {
         this.numero_cuenta = numero_cuenta;
         this.saldo = saldo;
         this.ultima_transaccion = ultima_transaccion;
         this.estado = estado;
-        this.operaciones_cuentas = operaciones_cuentas;
+        this.operaciones_cuenta = operaciones_cuenta;
         this.tipo = tipo;
         this.num_doc_cliente = num_doc_cliente;
     }
@@ -89,12 +89,12 @@ public class Cuenta {
         this.estado = estado;
     }
 
-    public List<OperacionCuenta> getOperaciones_cuentas() {
-        return operaciones_cuentas;
+    public List<OperacionCuenta> getOperaciones_cuenta() {
+        return operaciones_cuenta;
     }
 
-    public void setOperaciones_cuentas(List<OperacionCuenta> operaciones_cuentas) {
-        this.operaciones_cuentas = operaciones_cuentas;
+    public void setOperaciones_cuenta(List<OperacionCuenta> operaciones_cuenta) {
+        this.operaciones_cuenta = operaciones_cuenta;
     }
 
 
