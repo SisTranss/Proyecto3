@@ -8,22 +8,27 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-    <img th:src="@{/images/image.png}" with="250" id="LogoMain"/>
 
-    <a th:href="@{/usuarios}" class="btn btn-info m-2">Gestionar usuario</a>
-
-    <a th:href="@{/oficinas}" class="btn btn-info m-2">Gestionar oficinass</a>  
-
-    <a th:href="@{/puntosAtencion}" class="btn btn-info m-2">Gestionar puntos de atencion</a>
-
-    <a th:href="@{/cuentas}" class="btn btn-dark m-2">Gestionar cuentas</a>  
-
-    <a th:href="@{/consignar/new}" class="btn btn-dark m-2">consignar</a>  
-
-    <a th:href="@{/transferir/new}" class="btn btn-dark m-2">transferir</a>
-
-    <a th:href="@{/retirar/new}" class="btn btn-dark m-2">retirar</a>
-
+    <div class="container">
+        <div class="row">
+          <div class="col">
+            <img th:src="@{/images/image.png}"id="LogoMain"/>
+          </div>
+          <div class="col">
+            <a th:href="@{/usuarios}" class="btn btn-info m-2">Gestionar usuario</a>
+            <a th:href="@{/oficinas}" class="btn btn-info m-2">Gestionar oficinass</a>  
+            <a th:href="@{/puntosAtencion}" class="btn btn-info m-2">Gestionar puntos de atencion</a>
+            <a th:href="@{/cuentas}" class="btn btn-dark m-2">Gestionar cuentas</a>  
+            <a th:href="@{/consignar/new}" class="btn btn-dark m-2">consignar</a>  
+            <a th:href="@{/transferir/new}" class="btn btn-dark m-2">transferir</a>
+            <a th:href="@{/retirar/new}" class="btn btn-dark m-2">retirar</a>
+            <a th:href="@{/extractoBancario2}" class="btn btn-warning m-2">Emitir extracto bancario</a>
+          </div>
+         
+        </div>
+      </div>
+    <div class="row">  
+    </div>
     
 
 

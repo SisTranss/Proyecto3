@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.Update;
 
 import uniandes.edu.co.demo.modelo.Usuario2;
+import uniandes.edu.co.demo.modelo.Cuenta;
 import uniandes.edu.co.demo.modelo.OperacionCuenta;
 
 public interface Usuario2Repository extends MongoRepository<Usuario2, String>{
@@ -24,4 +25,12 @@ public interface Usuario2Repository extends MongoRepository<Usuario2, String>{
 
     @Query("{'cuentas.numero_cuenta': ?0}")
     List<Usuario2> buscarPorNum_cuenta(int id);
+
+    @Query("{num_doc: ?0}")
+    @Aggregation(pipeline = {"{ $unwind: '$cuentas' },{ $project: { _id: 0, cuentas: 1 } }"})
+    List<Cuenta> darCuentasUser(int num_doc);
+
+    @Aggregation(pipeline = {"{ $unwind: '$cuentas' },{ $project: { _id: 0, cuentas: 1 } }"})
+    List<Cuenta> darCuentas();
+  
 }

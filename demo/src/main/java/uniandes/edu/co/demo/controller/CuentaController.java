@@ -60,7 +60,7 @@ public class CuentaController {
     @PostMapping("cuentas/new/save")
     public String cuentaGuardar(@ModelAttribute Cuenta cuenta, int num_doc_cliente, Model model) { 
         List<OperacionCuenta> operacionesCuenta = new ArrayList<OperacionCuenta>();
-        cuenta.setOperaciones_cuentas(operacionesCuenta);
+        cuenta.setOperaciones_cuenta(operacionesCuenta);
         long millis=System.currentTimeMillis();
         Date hoy = new Date(millis);
         cuenta.setNumero_cuenta(32);
@@ -68,7 +68,7 @@ public class CuentaController {
         List<Usuario2> ans = usuarioRepository.findAll();
         for (Usuario2 u : ans) {
             if (u.getNum_doc() == num_doc_cliente) {
-                usuarioRepository.aniadirCuentaAUsuario(num_doc_cliente, cuenta.getNumero_cuenta(), cuenta.getSaldo(), hoy, "activa", cuenta.getTipo(), cuenta.getOperaciones_cuentas());
+                usuarioRepository.aniadirCuentaAUsuario(num_doc_cliente, cuenta.getNumero_cuenta(), cuenta.getSaldo(), hoy, "activa", cuenta.getTipo(), cuenta.getOperaciones_cuenta());
                 return "redirect:/cuentas";
             }
         }

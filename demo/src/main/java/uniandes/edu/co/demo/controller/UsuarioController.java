@@ -5,13 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import uniandes.edu.co.demo.repository.UsuarioRepository;
+import uniandes.edu.co.demo.repository.Usuario2Repository;
 
 @Controller
 public class UsuarioController {
     
     @Autowired
-    UsuarioRepository usuarioRepository;
+    Usuario2Repository usuarioRepository;
 
     @GetMapping("/usuarios")
     public String usuarios(Model model){
