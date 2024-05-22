@@ -66,7 +66,7 @@ public class OperacionCuentasController {
         for (Cuenta cuenta : c) {
                 if (cuenta.getNumero_cuenta() == numero_cuenta && cuenta.getSaldo() >= operacion_cuenta.getMonto_pago() && cuenta.getEstado().equals("activa")) {
                     cuenta.setSaldo(cuenta.getSaldo() - operacion_cuenta.getMonto_pago());
-                    List<OperacionCuenta> operacionesCuenta = cuenta.getOperaciones_cuentas();
+                    List<OperacionCuenta> operacionesCuenta = cuenta.getOperaciones_cuenta();
                     operacionesCuenta.add(new OperacionCuenta(operacion_cuenta.getTipo(), operacion_cuenta.getFecha_operacion(), operacion_cuenta.getMonto_pago(), 0));
                     usuarioModificado = usuario;
                     usuarioRepository.delete(usuario);
@@ -87,7 +87,7 @@ public class OperacionCuentasController {
         for (Cuenta cuenta : c) {
                 if (cuenta.getNumero_cuenta() == numero_cuenta && cuenta.getEstado().equals("activa")) {
                     cuenta.setSaldo(cuenta.getSaldo() + operacion_cuenta.getMonto_pago());
-                    List<OperacionCuenta> operacionesCuenta = cuenta.getOperaciones_cuentas();
+                    List<OperacionCuenta> operacionesCuenta = cuenta.getOperaciones_cuenta();
                     operacionesCuenta.add(new OperacionCuenta(operacion_cuenta.getTipo(), operacion_cuenta.getFecha_operacion(), operacion_cuenta.getMonto_pago(), 0));
                     usuarioModificado = usuario;
                     usuarioRepository.delete(usuario);
@@ -113,7 +113,7 @@ public class OperacionCuentasController {
             if (cuenta.getNumero_cuenta() == numero_cuenta  && cuenta.getSaldo() >= operacion_cuenta.getMonto_pago() && cuenta.getEstado().equals("activa") ) {
                 cuenta.setSaldo(cuenta.getSaldo() - operacion_cuenta.getMonto_pago());
 
-                List<OperacionCuenta> operacionesCuenta = cuenta.getOperaciones_cuentas();
+                List<OperacionCuenta> operacionesCuenta = cuenta.getOperaciones_cuenta();
                 operacionesCuenta.add(new OperacionCuenta("transaccion", operacion_cuenta.getFecha_operacion(), operacion_cuenta.getMonto_pago(), operacion_cuenta.getCuenta_destino()));
                 
                 usuarioOrigenModificado = usuarioOrigen;
@@ -152,7 +152,7 @@ public class OperacionCuentasController {
     public void modificarSaldoCuentaRetirar(Usuario2 usuario, Cuenta cuenta, Float monto_pago) {
         cuenta.setSaldo(cuenta.getSaldo() - monto_pago);
         List<OperacionCuenta> operacionesCuenta = new ArrayList<OperacionCuenta>();
-        cuenta.setOperaciones_cuentas(operacionesCuenta);
+        cuenta.setOperaciones_cuenta(operacionesCuenta);
 
         
         
