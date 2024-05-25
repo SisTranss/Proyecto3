@@ -1,7 +1,6 @@
 package uniandes.edu.co.demo.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,48 +8,47 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import uniandes.edu.co.demo.modelo.Cuenta;
 import uniandes.edu.co.demo.modelo.OperacionCuenta;
+import uniandes.edu.co.demo.modelo.PuntoAtencion;
 import uniandes.edu.co.demo.modelo.Usuario2;
-import uniandes.edu.co.demo.repository.CuentaRepository;
+import uniandes.edu.co.demo.repository.PuntoAtencionRepository;
 import uniandes.edu.co.demo.repository.Usuario2Repository;
 
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 
 @Controller
 public class OperacionCuentasController {
-    
-    @Autowired
-    private CuentaRepository cuentaRepository;
 
     @Autowired
     private Usuario2Repository usuarioRepository;
+
+    @Autowired
+    private PuntoAtencionRepository puntoAtencionRepository;
 
     
     @GetMapping("/consignar/new")
     public String consignarForm(Model model) {
         model.addAttribute("operacion_cuenta", new OperacionCuenta());
+        model.addAttribute("puntosAtencion", puntoAtencionRepository.findAll());
         return "operacionConsignarNueva";
     }
 
     @GetMapping("/retirar/new")
     public String retirarForm(Model model) {
         model.addAttribute("operacion_cuenta", new OperacionCuenta());
+        model.addAttribute("puntosAtencion", puntoAtencionRepository.puntosAtCajeroYPersonalizado());
         return "operacionRetirarNueva";
     }
 
     @GetMapping("/transferir/new")
     public String transaccionForm(Model model) {
         model.addAttribute("operacion_cuenta", new OperacionCuenta());
+        model.addAttribute("puntosAtencion", puntoAtencionRepository.findAll());
         return "transaccionNueva";
     }
     
@@ -58,7 +56,7 @@ public class OperacionCuentasController {
 
     @PostMapping("/retirar/new/save")
     @Transactional
-    public String retirarDinero(@RequestParam("numero_cuenta") int numero_cuenta, Model model, @ModelAttribute OperacionCuenta operacion_cuenta) {
+    public String retirarDinero(@RequestParam("numero_cuenta") int numero_cuenta, Model model, @ModelAttribute OperacionCuenta operacion_cuenta,@ModelAttribute("puntoAtencion") int idPuntoAtencion) {
 
         Usuario2 usuario = usuarioRepository.buscarPorNum_cuenta(numero_cuenta).get(0);
         Usuario2 usuarioModificado;
@@ -71,6 +69,10 @@ public class OperacionCuentasController {
                     usuarioModificado = usuario;
                     usuarioRepository.delete(usuario);
                     usuarioRepository.save(usuarioModificado);
+
+                    PuntoAtencion puntoAt = puntoAtencionRepository.buscarPorId(idPuntoAtencion);
+                    puntoAt.getOperaciones().add(numero_cuenta);
+                    puntoAtencionRepository.save(puntoAt);
                     return "redirect:/cuentas";
 
                 }
@@ -80,7 +82,7 @@ public class OperacionCuentasController {
     }
     
     @PostMapping("/consignar/new/save")
-    public String consignarDinero(@RequestParam("numero_cuenta") int numero_cuenta,  Model model, @ModelAttribute OperacionCuenta operacion_cuenta) {
+    public String consignarDinero(@RequestParam("numero_cuenta") int numero_cuenta,  Model model, @ModelAttribute OperacionCuenta operacion_cuenta,@ModelAttribute("puntoAtencion") int idPuntoAtencion) {
         Usuario2 usuario = usuarioRepository.buscarPorNum_cuenta(numero_cuenta).get(0);
         Usuario2 usuarioModificado;
         List<Cuenta> c = usuario.getCuentas();
@@ -88,7 +90,6 @@ public class OperacionCuentasController {
         for (Cuenta cuenta : c) {
 
                 if (cuenta.getNumero_cuenta() == numero_cuenta && cuenta.getEstado().equals("activa")) {
-                    System.out.print("AQUIIIIIIIIII");
 
                     cuenta.setSaldo(cuenta.getSaldo() + operacion_cuenta.getMonto_pago());
                     List<OperacionCuenta> operacionesCuenta = cuenta.getOperaciones_cuenta();
@@ -97,6 +98,11 @@ public class OperacionCuentasController {
                     usuarioModificado = usuario;
                     usuarioRepository.delete(usuario);
                     usuarioRepository.save(usuarioModificado);
+
+                    PuntoAtencion puntoAt = puntoAtencionRepository.buscarPorId(idPuntoAtencion);
+                    puntoAt.getOperaciones().add(numero_cuenta);
+                    puntoAtencionRepository.save(puntoAt);
+
                     return "redirect:/cuentas";
 
                 
@@ -107,7 +113,7 @@ public class OperacionCuentasController {
     }
 
     @PostMapping("/transferir/new/save")
-    public String transaccion(@RequestParam("numero_cuenta") int numero_cuenta, Model model, @ModelAttribute OperacionCuenta operacion_cuenta) {
+    public String transaccion(@RequestParam("numero_cuenta") int numero_cuenta, Model model, @ModelAttribute OperacionCuenta operacion_cuenta, @ModelAttribute("puntoAtencion") int idPuntoAtencion) {
         Usuario2 usuarioOrigen = usuarioRepository.buscarPorNum_cuenta(numero_cuenta).get(0);
         Usuario2 usuarioOrigenModificado;
         
@@ -138,6 +144,11 @@ public class OperacionCuentasController {
                         usuarioRepository.save(usuarioDestinoModificado);
                     }
                 }
+
+                PuntoAtencion puntoAt = puntoAtencionRepository.buscarPorId(idPuntoAtencion);
+                puntoAt.getOperaciones().add(numero_cuenta);
+                puntoAtencionRepository.save(puntoAt);
+
                 return "redirect:/cuentas";
             
             }

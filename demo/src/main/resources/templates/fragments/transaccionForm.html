@@ -29,10 +29,17 @@
             <input class = "form-control" type ="number" id="cuenta_destino"
             name = "cuenta_destino" required th:value="${operacion_cuenta.cuenta_destino}"/>
 
+            <label class="col-form-label" for="puntoAtencion">Punto de Atencion:</label>
+            <select class="form-control" id="puntoAtencion" name="puntoAtencion" required >
+            <th:block th:each = "puntoAtencion:${puntosAtencion}">
+                    <option th:value="${puntoAtencion.id}" th:selected="${puntoAtencion.id}" th:text="${puntoAtencion.id}"></option>
+                </select>
+            </th:block>
+
             <br>
             <div class="text-center">
                 <input type="submit" value="Guardar" class="btn btn-primary">
-                <a th:href="@{/cuentas}" class="btn btn-primary">Cancelar</a>
+                <a th:href="@{/}" class="btn btn-primary">Cancelar</a>
             </div>
         </form>
     </div> 

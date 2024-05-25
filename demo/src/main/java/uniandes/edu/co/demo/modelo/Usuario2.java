@@ -13,7 +13,7 @@ import lombok.ToString;
 
 public class Usuario2 {
     @Id
-    private int id;
+    private String id;
 
     private String nombre;
     private String tipo_doc;
@@ -56,11 +56,11 @@ public class Usuario2 {
     }
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
