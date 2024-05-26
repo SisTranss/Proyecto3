@@ -20,7 +20,7 @@ public class Usuario2 {
     @Indexed(unique = true)
     private int num_doc;
     private String email;
-    private String telefono;
+    private int telefono;
     private String nacionalidad;
     private String direccion;
     private String ciudad;
@@ -30,7 +30,7 @@ public class Usuario2 {
     private List<Cuenta> cuentas;
     
     
-    public Usuario2(String nombre, String tipo_doc, int num_doc, String email, String telefono, String nacionalidad,
+    public Usuario2(String nombre, String tipo_doc, int num_doc, String email, int telefono, String nacionalidad,
             String direccion, String ciudad, String departamento, int tipo_usuario, int tipo_empleado, List<Cuenta> cuentas) {
         
         this.nombre = nombre;
@@ -98,11 +98,11 @@ public class Usuario2 {
         this.email = email;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
