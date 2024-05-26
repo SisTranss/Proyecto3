@@ -24,6 +24,7 @@ public interface Usuario2Repository extends MongoRepository<Usuario2, Integer>{
     @Query("{'cuentas.numero_cuenta': ?0}")
     List<Usuario2> buscarPorNum_cuenta(int id);
 
+    @Query("{num_doc: null}")
     @Aggregation(
         pipeline = {
             "{$unwind: $cuentas}",
@@ -34,7 +35,8 @@ public interface Usuario2Repository extends MongoRepository<Usuario2, Integer>{
     @Query("{num_doc: ?0}")
     @Aggregation(pipeline = {"{ $unwind: '$cuentas' },{ $project: { _id: 0, cuentas: 1 } }"})
     List<Cuenta> darCuentasUser(int num_doc);
-
+    
+    @Query("{num_doc: null}")
     @Aggregation(pipeline = {"{ $unwind: '$cuentas' },{ $project: { _id: 0, cuentas: 1 } }"})
     List<Cuenta> darCuentas();
     

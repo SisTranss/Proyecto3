@@ -1,6 +1,9 @@
 package uniandes.edu.co.demo.controller;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -106,16 +109,11 @@ public String cuentasFiltro(
     String tipo, 
     Double minSaldo, 
     Double maxSaldo, 
-    @DateTimeFormat(pattern="yyyy-MM-dd") Date fechaUltimaTransaccion, 
-    Integer num_doc_cliente) 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaUltimaTransaccion, 
+    Integer num_doc_cliente)
 {   
-    Optional<String> optTipo = Optional.ofNullable(tipo);
-    Optional<Double> optMinSaldo = Optional.ofNullable(minSaldo);
-    Optional<Double> optMaxSaldo = Optional.ofNullable(maxSaldo);
-    Optional<Date> optFechaUltimaTransaccion = Optional.ofNullable(fechaUltimaTransaccion);
-    Optional<Integer> optNumDocCliente = Optional.ofNullable(num_doc_cliente);
 
-    if(!optTipo.isPresent() && !optMinSaldo.isPresent() && !optMaxSaldo.isPresent() && !optFechaUltimaTransaccion.isPresent() && !optNumDocCliente.isPresent()) {
+    if((tipo == null || tipo.equals("")) && minSaldo == null && maxSaldo == null && fechaUltimaTransaccion == null && num_doc_cliente == null) {
         List<Usuario2> ans = usuarioRepository.findAll();
         List<Cuenta> cuentas = new ArrayList<Cuenta>();
         for (Usuario2 u : ans) {
@@ -127,14 +125,18 @@ public String cuentasFiltro(
         }
         model.addAttribute("cuentas", cuentas);
     } else {
-        List<Cuenta> cuentas = cuentaService.findWithFilters(
-            optTipo.orElse(null), 
-            optMinSaldo.orElse(null), 
-            optMaxSaldo.orElse(null), 
-            optFechaUltimaTransaccion.orElse(null), 
-            optNumDocCliente.orElse(null)
-        );
-        model.addAttribute("cuentas", cuentas);
+        List<Usuario2> ans = usuarioRepository.findAll();
+        List<Cuenta> cuentas = new ArrayList<Cuenta>();
+        for (Usuario2 u : ans) {
+            List<Cuenta> c = u.getCuentas();
+            for (Cuenta cuenta : c) {
+                cuentas.add(cuenta);
+                cuenta.setNum_doc_cliente(u.getNum_doc());
+            }
+        }
+        List<Cuenta> cuentasFiltradas = cuentaService.findCuentas(cuentas, tipo, minSaldo, maxSaldo, fechaUltimaTransaccion, num_doc_cliente);
+        System.out.println(cuentasFiltradas);
+        model.addAttribute("cuentas", cuentasFiltradas);
     }
 
     return "cuentasFiltradas";
