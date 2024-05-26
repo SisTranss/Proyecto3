@@ -4,9 +4,11 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +20,7 @@ import com.mongodb.client.MongoCollection;
 
 import uniandes.edu.co.demo.repository.CuentaRepository;
 import uniandes.edu.co.demo.repository.Usuario2Repository;
+import uniandes.edu.co.demo.service.CuentaService;
 import uniandes.edu.co.demo.modelo.Cuenta;
 import uniandes.edu.co.demo.modelo.Oficina;
 import uniandes.edu.co.demo.modelo.OperacionCuenta;
@@ -34,6 +37,9 @@ public class CuentaController {
 
     @Autowired
     private Usuario2Repository usuarioRepository;
+
+    @Autowired
+    private CuentaService cuentaService;
 
     @GetMapping("/cuentas")
     public String cuentas(Model model) {
@@ -93,6 +99,47 @@ public class CuentaController {
         return "error";
         
     }
+
+   @GetMapping("/cuentasFiltro")
+public String cuentasFiltro(
+    Model model, 
+    String tipo, 
+    Double minSaldo, 
+    Double maxSaldo, 
+    @DateTimeFormat(pattern="yyyy-MM-dd") Date fechaUltimaTransaccion, 
+    Integer num_doc_cliente) 
+{   
+    Optional<String> optTipo = Optional.ofNullable(tipo);
+    Optional<Double> optMinSaldo = Optional.ofNullable(minSaldo);
+    Optional<Double> optMaxSaldo = Optional.ofNullable(maxSaldo);
+    Optional<Date> optFechaUltimaTransaccion = Optional.ofNullable(fechaUltimaTransaccion);
+    Optional<Integer> optNumDocCliente = Optional.ofNullable(num_doc_cliente);
+
+    if(!optTipo.isPresent() && !optMinSaldo.isPresent() && !optMaxSaldo.isPresent() && !optFechaUltimaTransaccion.isPresent() && !optNumDocCliente.isPresent()) {
+        List<Usuario2> ans = usuarioRepository.findAll();
+        List<Cuenta> cuentas = new ArrayList<Cuenta>();
+        for (Usuario2 u : ans) {
+            List<Cuenta> c = u.getCuentas();
+            for (Cuenta cuenta : c) {
+                cuentas.add(cuenta);
+                cuenta.setNum_doc_cliente(u.getNum_doc());
+            }
+        }
+        model.addAttribute("cuentas", cuentas);
+    } else {
+        List<Cuenta> cuentas = cuentaService.findWithFilters(
+            optTipo.orElse(null), 
+            optMinSaldo.orElse(null), 
+            optMaxSaldo.orElse(null), 
+            optFechaUltimaTransaccion.orElse(null), 
+            optNumDocCliente.orElse(null)
+        );
+        model.addAttribute("cuentas", cuentas);
+    }
+
+    return "cuentasFiltradas";
+}
+
 
     public void modificarCuentaPorNumeroCliente(int num_doc_cliente, int numero_cuenta, String nuevo_estado) {
         List<Usuario2> ans = usuarioRepository.findAll();
