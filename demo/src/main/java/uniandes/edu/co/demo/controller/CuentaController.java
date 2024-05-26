@@ -1,12 +1,17 @@
 package uniandes.edu.co.demo.controller;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +23,7 @@ import com.mongodb.client.MongoCollection;
 
 import uniandes.edu.co.demo.repository.CuentaRepository;
 import uniandes.edu.co.demo.repository.Usuario2Repository;
+import uniandes.edu.co.demo.service.CuentaService;
 import uniandes.edu.co.demo.modelo.Cuenta;
 import uniandes.edu.co.demo.modelo.Oficina;
 import uniandes.edu.co.demo.modelo.OperacionCuenta;
@@ -34,6 +40,9 @@ public class CuentaController {
 
     @Autowired
     private Usuario2Repository usuarioRepository;
+
+    @Autowired
+    private CuentaService cuentaService;
 
     @GetMapping("/cuentas")
     public String cuentas(Model model) {
@@ -93,6 +102,46 @@ public class CuentaController {
         return "error";
         
     }
+
+   @GetMapping("/cuentasFiltro")
+public String cuentasFiltro(
+    Model model, 
+    String tipo, 
+    Double minSaldo, 
+    Double maxSaldo, 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fechaUltimaTransaccion, 
+    Integer num_doc_cliente)
+{   
+
+    if((tipo == null || tipo.equals("")) && minSaldo == null && maxSaldo == null && fechaUltimaTransaccion == null && num_doc_cliente == null) {
+        List<Usuario2> ans = usuarioRepository.findAll();
+        List<Cuenta> cuentas = new ArrayList<Cuenta>();
+        for (Usuario2 u : ans) {
+            List<Cuenta> c = u.getCuentas();
+            for (Cuenta cuenta : c) {
+                cuentas.add(cuenta);
+                cuenta.setNum_doc_cliente(u.getNum_doc());
+            }
+        }
+        model.addAttribute("cuentas", cuentas);
+    } else {
+        List<Usuario2> ans = usuarioRepository.findAll();
+        List<Cuenta> cuentas = new ArrayList<Cuenta>();
+        for (Usuario2 u : ans) {
+            List<Cuenta> c = u.getCuentas();
+            for (Cuenta cuenta : c) {
+                cuentas.add(cuenta);
+                cuenta.setNum_doc_cliente(u.getNum_doc());
+            }
+        }
+        List<Cuenta> cuentasFiltradas = cuentaService.findCuentas(cuentas, tipo, minSaldo, maxSaldo, fechaUltimaTransaccion, num_doc_cliente);
+        System.out.println(cuentasFiltradas);
+        model.addAttribute("cuentas", cuentasFiltradas);
+    }
+
+    return "cuentasFiltradas";
+}
+
 
     public void modificarCuentaPorNumeroCliente(int num_doc_cliente, int numero_cuenta, String nuevo_estado) {
         List<Usuario2> ans = usuarioRepository.findAll();

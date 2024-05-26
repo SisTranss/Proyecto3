@@ -13,14 +13,14 @@ import lombok.ToString;
 
 public class Usuario2 {
     @Id
-    private String id;
+    private int id;
 
     private String nombre;
     private String tipo_doc;
     @Indexed(unique = true)
     private int num_doc;
     private String email;
-    private int telefono;
+    private String telefono;
     private String nacionalidad;
     private String direccion;
     private String ciudad;
@@ -30,7 +30,7 @@ public class Usuario2 {
     private List<Cuenta> cuentas;
     
     
-    public Usuario2(String nombre, String tipo_doc, int num_doc, String email, int telefono, String nacionalidad,
+    public Usuario2(String nombre, String tipo_doc, int num_doc, String email, String telefono, String nacionalidad,
             String direccion, String ciudad, String departamento, int tipo_usuario, int tipo_empleado, List<Cuenta> cuentas) {
         
         this.nombre = nombre;
@@ -46,6 +46,8 @@ public class Usuario2 {
         this.tipo_empleado = tipo_empleado;
         this.cuentas = cuentas;
     }
+    public Usuario2() {
+    }
 
     public List<Cuenta> getCuentas() {
         return cuentas;
@@ -56,11 +58,11 @@ public class Usuario2 {
     }
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -96,11 +98,11 @@ public class Usuario2 {
         this.email = email;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
