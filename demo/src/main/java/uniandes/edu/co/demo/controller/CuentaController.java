@@ -80,7 +80,7 @@ public class CuentaController {
 
     @GetMapping("/cuentas/{numero_cuenta}/cambiar-estado/save")
     public String actualizarCuentaClienteGuardar(@PathVariable("numero_cuenta") int numero_cuenta, @RequestParam("num_doc_cliente") int num_doc_cliente, @RequestParam("nuevo_estado") String nuevo_estado, Model model) {
-        Usuario2 usuario = usuarioRepository.buscarPorNumDoc(num_doc_cliente).get(0);
+        Usuario2 usuario = usuarioRepository.buscarPorNumDoc(num_doc_cliente);
         List<Cuenta> c = usuario.getCuentas();
         for (Cuenta cuenta : c) {
             if (cuenta.getNumero_cuenta() == numero_cuenta) {

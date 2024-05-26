@@ -16,11 +16,11 @@ public class OperacionCuenta {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha_operacion;
 
-    private Float monto_pago;
+    private int monto_pago;
 
     private int cuenta_destino;
 
-    public OperacionCuenta( String tipo, Date fecha_operacion, Float monto_pago, int cuenta_destino) {
+    public OperacionCuenta( String tipo, Date fecha_operacion, int monto_pago, int cuenta_destino) {
 
         this.tipo = tipo;
         this.fecha_operacion = fecha_operacion;
@@ -47,11 +47,11 @@ public class OperacionCuenta {
         this.fecha_operacion = fecha_operacion;
     }
 
-    public Float getMonto_pago() {
+    public int getMonto_pago() {
         return monto_pago;
     }
 
-    public void setMonto_pago(Float monto_pago) {
+    public void setMonto_pago(int monto_pago) {
         this.monto_pago = monto_pago;
     }
 

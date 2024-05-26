@@ -41,12 +41,17 @@ public class PuntoAtencionController {
 
     @PostMapping("/puntosAtencion/new/save")
     public String puntoAtencionGuardar(@ModelAttribute PuntoAtencion puntoAtencion, @ModelAttribute("oficina") String nombreOficina) {
+        PuntoAtencion puntoAt = puntoAtencionRepository.buscarPorId(puntoAtencion.getId());
+        //validar que el id no sea igual
+        if(puntoAt != null){
+            return "redirect:/error";
+        }
         List<Integer> operaciones = new ArrayList<>();
         puntoAtencion.setOperaciones(operaciones);
         if(puntoAtencion.getTipo_punto() != "digital"){
-            Oficina oficina = oficinaRepository.darOficinaPorNombre(nombreOficina);
-            oficina.getPuntos_atencion().add(puntoAtencion.getId());
-            oficinaRepository.save(oficina);
+            List<Oficina> oficina = oficinaRepository.darOficinaPorNombre(nombreOficina);
+            oficina.get(0).getPuntos_atencion().add(puntoAtencion.getId());
+            oficinaRepository.save(oficina.get(0));
         }
         
         puntoAtencionRepository.save(puntoAtencion);
@@ -56,8 +61,26 @@ public class PuntoAtencionController {
     @GetMapping("/puntosAtencion/{id}/delete")
     public String puntoAtencionEliminar(@PathVariable("id") int id){
         //validar que no haya ninguan operacion
-        PuntoAtencion puntoDetelete = puntoAtencionRepository.buscarPorId(id);
-        puntoAtencionRepository.delete(puntoDetelete);
+        PuntoAtencion puntoAt = puntoAtencionRepository.buscarPorId(id);
+        if(puntoAt.getOperaciones().size() == 0){
+            PuntoAtencion puntoDetelete = puntoAtencionRepository.buscarPorId(id);
+            puntoAtencionRepository.delete(puntoDetelete);
+
+            //eliminar de la oficina asociada
+            List<Oficina> oficinas = oficinaRepository.findAll();
+
+            for(Oficina office: oficinas){
+                List<Integer> puntosAt = office.getPuntos_atencion();
+                for(Integer puntoAten: puntosAt){
+                    if(puntoAten == id){
+                        office.getPuntos_atencion().remove((Integer)id);
+                        oficinaRepository.save(office);
+                        break;
+                    }
+                }
+            }
+        }
+
         return "redirect:/puntosAtencion";
     }
     

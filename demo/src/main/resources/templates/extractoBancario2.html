@@ -55,21 +55,17 @@
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID operacion</th>
                     <th>tipo de operación</th>
                     <th>fecha de operación</th>
                     <th>monto de pago</th>
-                    <th>cuenta de origen</th>
                     <th>cuenta de destino</th>
                 </tr>
             </thead>
             <th:block th:each = "operacionCuenta:${operacionesCuentas}">
                 <tr>
-                    <td th:text="${operacionCuenta.id}"></td>
-                    <td th:text="${operacionCuenta.tipo_operacion}"></td>
+                    <td th:text="${operacionCuenta.tipo}"></td>
                     <td th:text="${operacionCuenta.fecha_operacion}"></td>
                     <td th:text="${operacionCuenta.monto_pago}"></td>
-                    <td th:text="${operacionCuenta.cuenta_origen}"></td>
                     <td th:text="${operacionCuenta.cuenta_destino}"></td>
                 </tr>
             </th:block>
@@ -87,5 +83,6 @@
         </div>
         </div>
     </div>
+    <a th:href="@{/}" class="btn btn-primary m-2">Volver atrás</a>
 </body>
 </html>
