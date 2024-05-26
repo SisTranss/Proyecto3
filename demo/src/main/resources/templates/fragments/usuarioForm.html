@@ -11,17 +11,21 @@
         <h1 class="text-center" th:text="${titulo}"></h1>
         <form>
 
-            <label class="col-form-label"> Login </label>
-            <input class = "form-control" type ="text" id="login"
-            name = "login" required th:value="${login}"/>
-
-            <label class="col-form-label"> Password </label>
-            <input class = "form-control" type ="password" id="password"
-            name = "password" required th:value="${password}"/>
-
             <label class="col-form-label"> Nombre </label>
             <input class = "form-control" type ="text" id="nombre"
             name = "nombre" required th:value="${nombre}"/>
+
+            <label class="col-form-label"> Tipo documento</label>
+            <select class="form-control" id="tipo_Doc" name="tipo_Doc" required>
+                <option value="T.I" th:selected="${tipo_Doc eq 'T.I'}">T.I</option>
+                <option value="C.C" th:selected="${tipo_Doc eq 'C.C'}">C.C</option>
+                <option value="C.E" th:selected="${tipo_Doc eq 'C.E'}">C.E</option>
+                <option value="Otro" th:selected="${tipo_Doc eq 'Otro'}">Otro</option>
+            </select>
+
+            <label class="col-form-label"> Numero documento</label>
+            <input class = "form-control" type ="text" id="num_Doc"
+            name = "num_Doc" required th:value="${num_Doc}"/>
 
             <label class="col-form-label"> Email </label>
             <input class = "form-control" type ="text" id="email"
@@ -74,18 +78,6 @@
             <label class="col-form-label"> Departamento </label>
             <input class = "form-control" type ="text" id="departamento"
             name = "departamento" required th:value="${departamento}"/>
-            
-            <label class="col-form-label"> Tipo documento</label>
-            <select class="form-control" id="tipo_Doc" name="tipo_Doc" required>
-                <option value="T.I" th:selected="${tipo_Doc eq 'T.I'}">T.I</option>
-                <option value="C.C" th:selected="${tipo_Doc eq 'C.C'}">C.C</option>
-                <option value="C.E" th:selected="${tipo_Doc eq 'C.E'}">C.E</option>
-                <option value="Otro" th:selected="${tipo_Doc eq 'Otro'}">Otro</option>
-            </select>
-
-            <label class="col-form-label"> Numero documento</label>
-            <input class = "form-control" type ="text" id="num_Doc"
-            name = "num_Doc" required th:value="${num_Doc}"/>
 
             <br>
             <div class="text-center">
