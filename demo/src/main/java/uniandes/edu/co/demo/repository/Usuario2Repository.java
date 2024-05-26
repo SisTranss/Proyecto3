@@ -3,9 +3,7 @@ package uniandes.edu.co.demo.repository;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.repository.Aggregation;
-import org.springframework.data.mongodb.repository.DeleteQuery;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.Update;
@@ -26,6 +24,13 @@ public interface Usuario2Repository extends MongoRepository<Usuario2, Integer>{
     @Query("{'cuentas.numero_cuenta': ?0}")
     List<Usuario2> buscarPorNum_cuenta(int id);
 
+    @Aggregation(
+        pipeline = {
+            "{$unwind: $cuentas}",
+            "{$match: {$in: [null, ?1]}",
+        }
+    )
+    List<Cuenta> darCuebCuentas2();
     @Query("{num_doc: ?0}")
     @Aggregation(pipeline = {"{ $unwind: '$cuentas' },{ $project: { _id: 0, cuentas: 1 } }"})
     List<Cuenta> darCuentasUser(int num_doc);
